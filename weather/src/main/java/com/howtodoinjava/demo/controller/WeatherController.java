@@ -10,7 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import com.howtodoinjava.demo.model.Weather;
+
+@Api(value = "WeatherController", description = "REST Apis related to Weather Entity!!!!")
 
 @RestController
 public class WeatherController {
@@ -44,6 +51,13 @@ public class WeatherController {
 
 	}
 
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Suceess|OK"),
+			@ApiResponse(code = 401, message = "not authorized!"),
+			@ApiResponse(code = 403, message = "forbidden!!!"),
+			@ApiResponse(code = 404, message = "not found!!!") })
+
+	@ApiOperation(value = "Get specific Weathers By Country in the System ", response = Iterable.class, tags = "getStudentByCountry")
 	@RequestMapping(value = "/getWeatherDetailsForCountry/{countryname}", method = RequestMethod.GET)
 	public List<Weather> getWeathersByCountryname(@PathVariable String countryname) {
 		System.out.println("Getting Weather details for " + countryname);
@@ -56,6 +70,7 @@ public class WeatherController {
 		return wList;
 	}
 
+	@ApiOperation(value = "Get specific Weathers By City in the System ", response = Iterable.class, tags = "getWeathersByCity")
 	@RequestMapping(value = "/getWeatherDetailsForCity/{city}", method = RequestMethod.GET)
 	public List<Weather> getWeathersByCity(@PathVariable String city) {
 		System.out.println("Getting Weather details for " + city);
@@ -72,6 +87,7 @@ public class WeatherController {
 		return wList;
 	}
 
+	@ApiOperation(value = "Get specific Weathers By ZipCode in the System ", response = Iterable.class, tags = "getWeathersByZip_code")
 	@RequestMapping(value = "/getWeatherDetailsForZip_code/{zip_code}", method = RequestMethod.GET)
 	public List<Weather> getWeathersByZip_code(@PathVariable String zip_code) {
 		System.out.println("Getting Weather details for " + zip_code);
